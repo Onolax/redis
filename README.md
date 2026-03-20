@@ -1,4 +1,4 @@
-# Build Your Own Redis (C/C++)
+# Mini-Redis (C/C++)
 
 A Redis-like in-memory key-value store built from scratch in C/C++, following the guide **"Build Your Own Redis with C/C++"** by James Smith.
 
