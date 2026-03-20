@@ -716,7 +716,7 @@ static void handle_read(Conn *conn) {
 
 const uint64_t k_idle_timeout_ms = 5 * 1000;
 
-static uint32_t next_timer_ms() {
+static int32_t next_timer_ms() {
     uint64_t now_ms = get_monotonic_msec();
     uint64_t next_ms = (uint64_t)-1;
     // idle timers using a linked list
@@ -764,7 +764,7 @@ static void process_timers() {
         // fprintf(stderr, "key expired: %s\n", ent->key.c_str());
         // delete the key
         entry_del(ent);
-        if (nworks++ >= k_max_works) {
+        if (++nworks >= k_max_works) {
             // don't stall the server if too many keys are expiring at once
             break;
         }
@@ -786,8 +786,8 @@ int main() {
     // bind
     struct sockaddr_in addr = {};
     addr.sin_family = AF_INET;
-    addr.sin_port = ntohs(1234);
-    addr.sin_addr.s_addr = ntohl(0);  // wildcard address 0.0.0.0
+    addr.sin_port = htons(1234);
+    addr.sin_addr.s_addr = htonl(0);  // wildcard address 0.0.0.0
     int rv = bind(fd, (const sockaddr *)&addr, sizeof(addr));
     if (rv) {
         die("bind()");

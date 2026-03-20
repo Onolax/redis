@@ -95,8 +95,8 @@ void hm_insert(HMap *hmap, HNode *node) {
     h_insert(&hmap->newer, node);  // always insert to the newer table
 
     if (!hmap->older.tab) {  // check whether we need to rehash
-        size_t shreshold = (hmap->newer.mask + 1) * k_max_load_factor;
-        if (hmap->newer.size >= shreshold) {
+        size_t threshold = (hmap->newer.mask + 1) * k_max_load_factor;
+        if (hmap->newer.size >= threshold) {
             hm_trigger_rehashing(hmap);
         }
     }

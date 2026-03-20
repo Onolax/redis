@@ -97,10 +97,6 @@ static bool hcmp(HNode *node, HNode *key) {
 
 // lookup by name
 ZNode *zset_lookup(ZSet *zset, const char *name, size_t len) {
-    if (!zset->root) {
-        return NULL;
-    }
-
     HKey key;
     key.node.hcode = str_hash((uint8_t *)name, len);
     key.name = name;
